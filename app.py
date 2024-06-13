@@ -1,4 +1,5 @@
 import os
+import time
 from flask import Flask, render_template, request, jsonify, send_from_directory
 import torch
 from transformers import VisionEncoderDecoderModel, ViTImageProcessor, AutoTokenizer
@@ -23,10 +24,14 @@ def generate_response(image_path, prompt):
     generated_text = tokenizer.batch_decode(generated_ids.sequences, skip_special_tokens=True)[0]
     return generated_text
 
-def text_to_speech(text, filename):
+def text_to_speech(text):
+    timestamp = int(time.time())
+    filename = f"output_{timestamp}.wav"
+    filepath = os.path.join('static', filename)
     engine = pyttsx3.init()
-    engine.save_to_file(text, os.path.join('static', filename))
+    engine.save_to_file(text, filepath)
     engine.runAndWait()
+    return filename
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -36,11 +41,9 @@ def index():
         image_path = 'uploaded_image.jpg'
         image.save(image_path)
         response_text = generate_response(image_path, prompt)
-        audio_filename = 'output.wav'
-        text_to_speech(response_text, audio_filename)
+        audio_filename = text_to_speech(response_text)
         return jsonify({'response': response_text, 'audio': audio_filename})
     return render_template('index.html')
-
 @app.route('/static/<path:filename>')
 def serve_static(filename):
     return send_from_directory('static', filename)

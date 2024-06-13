@@ -8,7 +8,7 @@
     <form action="/" method="post" enctype="multipart/form-data">
         <input type="file" name="image" accept="image/*" required>
         <br>
-        <textarea name="prompt" placeholder="Describe this image" required></textarea>
+        <textarea name="prompt" placeholder="Describe image" required></textarea>
         <br>
         <button type="submit">Generate Response</button>
     </form>
@@ -27,7 +27,7 @@
                     contentType: false,
                     success: function(data) {
                         var audioUrl = "{{ url_for('serve_static', filename='') }}" + data.audio;
-                        $('#response').html('<p>' + data.response + '</p><audio controls><source src="' + audioUrl + '" type="audio/wav"></audio>');
+                        $('#response').html('').append('<p>' + data.response + '</p><audio controls><source src="' + audioUrl + '" type="audio/wav"></audio>');
                     }
                 });
             });
