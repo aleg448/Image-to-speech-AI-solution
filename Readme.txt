@@ -21,3 +21,4 @@ The Speech audio file is displayed to the use on the web framework
 
 You can install the requirements for this proyect with:
 "pip install flask opencv-python transformers torch pyttsx3"
+"pip3 install numpy --pre torch torchvision torchaudio --force-reinstall --index-url https://download.pytorch.org/whl/nightly/cu117"
