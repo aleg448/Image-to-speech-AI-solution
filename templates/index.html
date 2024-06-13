@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <audio controls>
+        <source src="{{ url_for('serve_static', filename='output.wav') }}" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+<head>
+    <title>Image-to-Text-to-Speech</title>
+</head>
+<body>
+    <h1>Image-to-Text-to-Speech</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <br>
+        <textarea name="prompt" placeholder="Describe this image" required></textarea>
+        <br>
+        <button type="submit">Generate Response</button>
+    </form>
+    <div id="response"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: '/',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        $('#response').html('<p>' + data.response + '</p><audio controls><source src="' + data.audio + '" type="audio/wav"></audio>');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
