@@ -2,8 +2,10 @@ K.Wolf's Image-to-Text-to-Speech!
 Are you blind and received an image? Would you like to know if it is a cute dog or a chair?
 Upload the image, and we'll tell you!!
 
-If you are the intended recepient, Hi to the folks at ☆, This app was developed in 8 hours including lunch break and I managed to get it working just in time!
+If you are the intended recipient, Hi to the folks at ☆, This app was developed in 8 hours including lunch break and I managed to get it working just in time!
 I had a few issues getting a mLLM like LLava and scaled back to a more manageable model "vit-gpt2-image-captioning"
+This model unfortunately was not able to run the imaginative part of the task and so we only get an imaginative description.
+With more time my next approach would be to get  a more imaginative LLM running with the text input to create a story, Cheers!
 
 
 This application is built using Python and Flask to create a web framework.
